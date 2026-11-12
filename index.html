@@ -122,10 +122,21 @@ h1,h2,h3,.disp,[style*="font-size: 72px"],[style*="font-size: 56px"],[style*="fo
 h1,h2,.disp,[style*="font-size: 72px"],[style*="font-size: 92px"]{font-weight:700!important;letter-spacing:0.01em!important;line-height:1.18!important}
 h3{font-weight:600!important;letter-spacing:0.015em!important;line-height:1.3!important}
 .disp{letter-spacing:0.015em!important}
+
+.seg{all:unset;flex:1;height:22px;cursor:pointer;display:flex;align-items:center}
+.seg::before{content:"";display:none}
+.seg{position:relative}
+.seg>.segf{position:absolute;left:0;top:50%;height:3px;margin-top:-1.5px;border-radius:3px;background:#BEFDC4;transition:width .5s cubic-bezier(.2,.75,.1,1)}
+.seg::after{content:"";flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.16);transition:background-color .3s}
+.seg:hover::after{background:rgba(255,255,255,.32)}
+.seg:focus-visible{outline:2px solid #BEFDC4;outline-offset:2px;border-radius:4px}
+@keyframes segA{from{width:0%}to{width:100%}}
+@keyframes segB{from{width:0%}to{width:100%}}
+@media (prefers-reduced-motion: reduce){.seg>.segf{transition:none;animation:none!important}}
 </style>
 <style>[hidden]{display:none!important}</style>
 </head>
-<body>
+<body style="margin:0">
 <div id="root" style="position: relative; width: 100%; background: #F6F7FB; color: #0E2338; font-family: 'Heebo', system-ui, sans-serif; font-weight: 300; font-size: 17px; line-height: 1.6; overflow: clip">
 
 <div aria-hidden="true" id="cur" class="cur" style="opacity: 0">VIEW</div>
@@ -351,25 +362,16 @@ h3{font-weight:600!important;letter-spacing:0.015em!important;line-height:1.3!im
 <div role="tabpanel" style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px">
 <div style="flex: 1 1 380px; min-width: 0; border-radius: 28px; background: #0E2338; color: #FFFFFF; padding: clamp(28px,3.4vw,44px); display: flex; flex-direction: column; gap: 28px">
 <div>
-<span class="mono" style="color: #BEFDC4">Step <span id="cur-n">01</span> / 05</span>
+<span class="mono" style="color: #B5B5B5"><span id="cur-n">01</span> / 05</span>
 <h3 style="margin: 12px 0 12px; font-weight: 300; font-size: clamp(40px,4vw,56px); line-height: 1.05; color: #FFFFFF" id="cur-t"></h3>
-<p style="margin: 0; max-width: 460px; font-size: 17px; color: #DEDEDE" id="cur-d"></p>
+<p style="margin: 0; max-width: 420px; font-size: 17px; font-weight: 300; line-height: 1.55; color: #DEDEDE" id="cur-d"></p>
 </div>
-<div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.14)">
-<div>
-<span class="mono" style="display: block; margin-bottom: 10px; color: #B5B5B5">What happens</span>
-<ul id="cur-acts" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
-<template id="act-tpl"><li style="display: flex; align-items: center; gap: 10px; font-size: 15px"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; border-radius: 50%; background: #3FD46A"></span><span class="act"></span></li></template>
-</ul>
+<div style="display: flex; align-items: center; gap: 12px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14)">
+<span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: #3FD46A"></span>
+<span style="font-size: 18px; font-weight: 300; color: #FFFFFF" id="cur-out"></span>
 </div>
-<div>
-<span class="mono" style="display: block; margin-bottom: 10px; color: #B5B5B5">You get</span>
-<span style="font-size: 18px; font-weight: 400; color: #BEFDC4" id="cur-out"></span>
-</div>
-</div>
-<div style="margin-top: auto; display: flex; justify-content: flex-end; gap: 8px">
-<button type="button" id="tprev" aria-label="Previous step" style="width: 48px; height: 48px; border-radius: 999px; border: 1px solid rgba(255,255,255,.5); background: transparent; color: #FFFFFF; font: inherit; font-size: 18px; cursor: pointer">←</button>
-<button type="button" id="tnext" aria-label="Next step" style="width: 48px; height: 48px; border-radius: 999px; border: 0; background: #BEFDC4; color: #0E2338; font: inherit; font-size: 18px; cursor: pointer">→</button>
+<div style="margin-top: auto; display: flex; gap: 6px" role="group" aria-label="Steps">
+<button type="button" class="seg" data-i="0" aria-label="Step 01: Discover"><span class="segf" ></span></button><button type="button" class="seg" data-i="1" aria-label="Step 02: Define"><span class="segf" ></span></button><button type="button" class="seg" data-i="2" aria-label="Step 03: Design"><span class="segf" ></span></button><button type="button" class="seg" data-i="3" aria-label="Step 04: Build"><span class="segf" ></span></button><button type="button" class="seg" data-i="4" aria-label="Step 05: Evolve"><span class="segf" ></span></button>
 </div>
 </div>
 <div aria-hidden="true" id="stage" style="flex: 1.25 1 440px; min-width: 0; min-height: 420px; position: relative; overflow: hidden; border-radius: 28px; background: #EEF1F8; border: 1px solid #E2E2E6">
@@ -469,21 +471,17 @@ h3{font-weight:600!important;letter-spacing:0.015em!important;line-height:1.3!im
 </div>
 </div>
 </div>
-<button type="button" class="whyb" data-i="0" style="all: unset; cursor: pointer; position: absolute; left: 13.9%; top: 14.3%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
-<span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #0E2338;" class="whyd box-shadow: 0 0 0 6px #F6F7FB; transition: background-color .3s"></span>
-<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap">End-to-end</span>
+<button type="button" class="whyb" data-i="0" style="all: unset; cursor: pointer; position: absolute; left: 13.9%; top: 14.3%; transform: translate(-100%, -100%); padding: 8px 14px">
+<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap; padding-bottom: 4px; background: linear-gradient(#3FD46A,#3FD46A) 0 100%/0% 2px no-repeat; transition: background-size .4s cubic-bezier(.2,.75,.1,1)">End-to-end</span>
 </button>
-<button type="button" class="whyb" data-i="1" style="all: unset; cursor: pointer; position: absolute; left: 86.1%; top: 14.3%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
-<span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #0E2338;" class="whyd box-shadow: 0 0 0 6px #F6F7FB; transition: background-color .3s"></span>
-<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap">Product thinking</span>
+<button type="button" class="whyb" data-i="1" style="all: unset; cursor: pointer; position: absolute; left: 86.1%; top: 14.3%; transform: translate(0, -100%); padding: 8px 14px">
+<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap; padding-bottom: 4px; background: linear-gradient(#3FD46A,#3FD46A) 0 100%/0% 2px no-repeat; transition: background-size .4s cubic-bezier(.2,.75,.1,1)">Product thinking</span>
 </button>
-<button type="button" class="whyb" data-i="2" style="all: unset; cursor: pointer; position: absolute; left: 13.9%; top: 85.7%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
-<span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #0E2338;" class="whyd box-shadow: 0 0 0 6px #F6F7FB; transition: background-color .3s"></span>
-<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap">Built for you</span>
+<button type="button" class="whyb" data-i="2" style="all: unset; cursor: pointer; position: absolute; left: 13.9%; top: 85.7%; transform: translate(-100%, 0); padding: 8px 14px">
+<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap; padding-bottom: 4px; background: linear-gradient(#3FD46A,#3FD46A) 0 100%/0% 2px no-repeat; transition: background-size .4s cubic-bezier(.2,.75,.1,1)">Built for you</span>
 </button>
-<button type="button" class="whyb" data-i="3" style="all: unset; cursor: pointer; position: absolute; left: 86.1%; top: 85.7%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
-<span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #0E2338;" class="whyd box-shadow: 0 0 0 6px #F6F7FB; transition: background-color .3s"></span>
-<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap">Here for the long run</span>
+<button type="button" class="whyb" data-i="3" style="all: unset; cursor: pointer; position: absolute; left: 86.1%; top: 85.7%; transform: translate(0, 0); padding: 8px 14px">
+<span class="disp" style="font-size: 22px; font-weight: 600; color: #0E2338; white-space: nowrap; padding-bottom: 4px; background: linear-gradient(#3FD46A,#3FD46A) 0 100%/0% 2px no-repeat; transition: background-size .4s cubic-bezier(.2,.75,.1,1)">Here for the long run</span>
 </button>
 
 </div>
@@ -549,40 +547,37 @@ var WHY=[
       { n: '04', t: 'Here for the long run', d: 'After launch we maintain, improve and grow it with you.', x: '86.1%', y: '85.7%' }
     ];
 var $=function(id){return document.getElementById(id)};
-// preloader
-var pct=0,pre=$('pre'),ball=$('ball'),pctEl=$('pct'),hero=$('hero');
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var pct=0,pre=$('pre'),ball=$('ball'),pctEl=$('pct'),hero=$('hero');
 function done(){pre.classList.add('out');hero.classList.add('in');}
-if(reduce){pct=100;pctEl.textContent='100';done();}else{var t=setInterval(function(){pct=Math.min(100,pct+Math.max(1,Math.round((100-pct)/9)));pctEl.textContent=pct;ball.style.left=pct+'%';ball.style.transform='translateX(-'+pct+'%)';if(pct>=100){clearInterval(t);done();}},40);}
-// cursor + parallax
+if(reduce){pctEl.textContent='100';done();}else{var t=setInterval(function(){pct=Math.min(100,pct+Math.max(1,Math.round((100-pct)/9)));pctEl.textContent=pct;ball.style.left=pct+'%';ball.style.transform='translateX(-'+pct+'%)';if(pct>=100){clearInterval(t);done();}},40);}
 var root=$('root'),cur=$('cur'),raf=null;
 root.addEventListener('mousemove',function(e){var r=root.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){cur.style.transform='translate('+x+'px,'+y+'px)';cur.style.opacity=1;root.style.setProperty('--ox',Math.round(nx*70)+'px');root.style.setProperty('--oy',Math.round(ny*50)+'px');root.style.setProperty('--mx',Math.round(nx*-50)+'px');root.style.setProperty('--my',Math.round(ny*-40)+'px');});});
-root.addEventListener('mouseleave',function(){cur.style.opacity=0;root.style.setProperty('--ox','0px');root.style.setProperty('--oy','0px');root.style.setProperty('--mx','0px');root.style.setProperty('--my','0px');});
+root.addEventListener('mouseleave',function(){cur.style.opacity=0;['--ox','--oy','--mx','--my'].forEach(function(k){root.style.setProperty(k,'0px')});});
 document.querySelectorAll('article.card').forEach(function(a){a.addEventListener('mouseenter',function(){cur.classList.add('big')});a.addEventListener('mouseleave',function(){cur.classList.remove('big')});});
-// timeline
-var step=0,touched=false,btns=document.querySelectorAll('.tstep'),stage=$('stage');
+var step=0,touched=false,btns=document.querySelectorAll('.tstep'),segs=document.querySelectorAll('.seg'),stage=$('stage');
 function render(){
- btns.forEach(function(bt,i){bt.setAttribute('aria-selected',i===step?'true':'false');bt.style.opacity=i<=step?1:0.4;var n=bt.querySelector('.tnode');n.style.cssText='display:block;width:14px;height:14px;border-radius:50%;box-sizing:border-box;border:2px solid #0E2338;transition:background-color .3s,box-shadow .3s;background:'+(i<=step?'#0E2338':'#FFFFFF')+(i===step?';box-shadow:0 0 0 6px rgba(190,253,196,.9)':'');});
+ btns.forEach(function(bt,i){bt.setAttribute('aria-selected',i===step?'true':'false');bt.style.opacity=i<=step?1:0.4;bt.querySelector('.tnode').style.cssText='display:block;width:14px;height:14px;border-radius:50%;box-sizing:border-box;border:2px solid #0E2338;transition:background-color .3s,box-shadow .3s;background:'+(i<=step?'#0E2338':'#FFFFFF')+(i===step?';box-shadow:0 0 0 6px rgba(190,253,196,.9)':'');});
+ segs.forEach(function(sg,i){var f=sg.querySelector('.segf');f.style.animation='none';f.style.width=i<step?'100%':i>step?'0%':'100%';if(i===step&&!touched){void f.offsetWidth;f.style.animation='segA 4.5s linear forwards';}});
  $('tprog').style.width=(step*20+0.6)+'%';
  var c=STEPS[step];$('cur-n').textContent=c.n;$('cur-t').textContent=c.t;$('cur-d').textContent=c.d;$('cur-out').textContent=c.out;
- var ul=$('cur-acts'),tp=$('act-tpl');ul.querySelectorAll('li').forEach(function(l){l.remove()});c.acts.forEach(function(a){var li=tp.content.firstElementChild.cloneNode(true);li.querySelector('.act').textContent=a;ul.appendChild(li);});
  stage.querySelectorAll('.vis').forEach(function(v){v.remove()});var w=document.createElement('div');w.className='vis';w.style.cssText='position:absolute;inset:0';w.appendChild($('vis'+(step+1)).content.cloneNode(true));stage.appendChild(w);
 }
 function go(i){step=(i+5)%5;render();}
-btns.forEach(function(bt,i){bt.addEventListener('click',function(){touched=true;go(i)});bt.addEventListener('mouseenter',function(){touched=true;if(step!==i)go(i)});});
-$('tprev').addEventListener('click',function(){touched=true;go(step-1)});$('tnext').addEventListener('click',function(){touched=true;go(step+1)});
+btns.forEach(function(bt,i){bt.addEventListener('click',function(){touched=true;go(i)});bt.addEventListener('mouseenter',function(){touched=true;if(step!==i)go(i);else render();});});
+segs.forEach(function(sg,i){sg.addEventListener('click',function(){touched=true;go(i)});});
 setInterval(function(){if(!touched)go(step+1)},4500);
 render();
-// why diagram
-var idle=$('why-idle'),act=$('why-act');
-document.querySelectorAll('.whyb').forEach(function(bt){var i=+bt.dataset.i;function on(){var w=WHY[i];$('why-n').textContent=w.n;$('why-t').textContent=w.t;$('why-d').textContent=w.d;idle.style.display='none';act.style.display='contents';document.querySelectorAll('.whyd').forEach(function(d,k){d.style.background=k===i?'#3FD46A':'#0E2338'});}
-function off(){idle.style.display='contents';act.style.display='none';document.querySelectorAll('.whyd').forEach(function(d){d.style.background='#0E2338'});}
+var idle=$('why-idle'),act=$('why-act'),wb=document.querySelectorAll('.whyb');
+function ul(i){wb.forEach(function(x,k){x.querySelector('span').style.backgroundSize=(k===i?'100%':'0%')+' 2px'});}
+wb.forEach(function(bt){var i=+bt.dataset.i;function on(){var w=WHY[i];$('why-n').textContent=w.n;$('why-t').textContent=w.t;$('why-d').textContent=w.d;idle.style.display='none';act.style.display='contents';ul(i);}
+function off(){idle.style.display='contents';act.style.display='none';ul(-1);}
 bt.addEventListener('mouseenter',on);bt.addEventListener('focus',on);bt.addEventListener('mouseleave',off);bt.addEventListener('blur',off);});
-// dock
 var dp=$('dockp'),db=$('dockbtn');
 db.addEventListener('click',function(){var open=dp.hidden;dp.hidden=!open;db.textContent=open?'Close':"Let's talk";db.setAttribute('aria-expanded',open);$('sent').hidden=true;$('notsent').hidden=false;});
 $('send').addEventListener('click',function(){$('sent').hidden=false;$('notsent').hidden=true;});
 })();
+
 </script>
 </body>
 </html>
